@@ -1,0 +1,16 @@
+---
+- name: provision
+  remote_user: root
+  hosts: all
+  # Do not gather facts here because if host does not have python2 installed (i.e. Ubuntu 16) this will fail initially.  Gather facts later...
+  gather_facts: false
+  pre_tasks:
+    - name: 'Install python2'
+      raw: pacman -Sy --noconfirm --needed python2 && ln -sf /usr/bin/python2 /usr/bin/python
+    - name: Gather facts
+      setup: # Now gather facts: http://stackoverflow.com/a/31060268/626911
+  roles:
+    - user
+    - utils
+    - node
+    - vistaicm-server

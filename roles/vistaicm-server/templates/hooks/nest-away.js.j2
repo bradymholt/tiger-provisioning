@@ -1,0 +1,13 @@
+var nest = require('unofficial-nest-api');
+
+module.exports = function (ICM) {
+	ICM.events.on('armStatusChanged', function(armStatus){
+	   if (armStatus == 2 || armStatus == 0) {
+		nest.login('{{nest_username}}', '{{nest_password}}', function(){
+  			nest.fetchStatus(function(){
+        			nest.setAway(armStatus==2);
+  			});
+		});
+	    }
+	});
+};

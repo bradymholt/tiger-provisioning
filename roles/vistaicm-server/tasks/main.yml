@@ -1,0 +1,28 @@
+- name: Download vistaicm-server archive from Github repo
+  get_url:
+    url: https://github.com/bradyholt/vistaicm-server/archive/master.zip
+    dest: /tmp/vistaicm.zip
+
+- name: Unzip archive
+  unarchive: src=/tmp/vistaicm.zip dest=/tmp/ copy=no
+
+- name: Create vistaicm-server install directory
+  file: path={{install_dir}} state=directory mode=0775
+
+- name: Sync files to {{install_dir}}
+  synchronize: src=/tmp/vistaicm-server-master/ dest={{install_dir}} recursive=yes
+  delegate_to: "{{inventory_hostname}}"
+
+- name: npm install
+  npm: path={{install_dir}} state=latest
+
+- name: Install hooks
+  template: src={{ item }} dest={{install_dir}}/hooks/{{ item | basename | regex_replace('\.j2','') }}
+  with_fileglob:
+    - ../templates/hooks/*.j2
+
+- name: Install vistaicm-server-service systemd unit file
+  template: src=vistaicm-server.service.j2 dest=/etc/systemd/system/vistaicm-server.service
+
+- name: Start vistaicm-server-service now and at boot
+  systemd: enabled=yes state=started name=vistaicm-server daemon_reload=yes

@@ -1,0 +1,12 @@
+module.exports = function (ICM) {
+	ICM.events.on('zoneStatusChanged', function(zoneNumber, isFaulted){
+		var day=new Date().getDay();
+		var hour=new Date().getHours();
+		if(zoneNumber==17 
+			&& !isFaulted 
+			&& (day >= 1 && day <= 5)
+			&& (hour >= 7 && hour <= 17)){  //7PM-6PM
+		    ICM.executeCommand('F1'); //arm STAY
+		}	
+	});
+};

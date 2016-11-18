@@ -1,0 +1,7 @@
+[Service]
+ExecStart=/usr/bin/node {{install_dir}}/server.js
+Restart=always
+User={{main_user}}
+
+[Install]
+WantedBy=multi-user.target

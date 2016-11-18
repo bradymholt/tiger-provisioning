@@ -1,0 +1,18 @@
+- name: Remove default user (alarm)
+  user: name=alarm state=absent
+
+- name: Add {{main_user}} user
+  user: name={{main_user}} shell=/bin/bash append=true
+
+- name: Add {{main_user}} user public key to authorized_key
+  authorized_key: user={{main_user}} key=https://github.com/{{ gh_pubkey_user }}.keys
+
+- name: Install sudo
+  pacman: name=sudo state=present
+
+- name: Add {{main_user}} user to sudoers
+  lineinfile:
+    "dest=/etc/sudoers
+    regexp='^{{main_user}} ALL'
+    line='{{main_user}} ALL=(ALL) NOPASSWD: ALL'
+    state=present"

@@ -1,0 +1,6 @@
+- name: Install Node.js
+  pacman: name=nodejs state=present
+
+- name: Install npm
+  pacman: name=npm state=present
+
