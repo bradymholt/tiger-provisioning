@@ -1,3 +1,9 @@
+- name: Cleanup previous archive download
+  file: path=/tmp/vistaicm.zip state=absent
+
+- name: Cleanup previous unarchive directory
+  file: path=/tmp/vistaicm-server-master state=absent
+
 - name: Download vistaicm-server archive from Github repo
   get_url:
     url: https://github.com/bradyholt/vistaicm-server/archive/master.zip
