@@ -16,7 +16,7 @@
 
 ## Pre-provisioning
 
-1. ssh alarm@[IP from device list] (password: alarm)
+1. `ssh alarm@[IP from device list]` (password: alarm)
 2. `su root` (password: root)
 3. `mkdir ~/.ssh`
 4. `curl -o ~/.ssh/authorized_keys https://github.com/bradyholt.keys`
