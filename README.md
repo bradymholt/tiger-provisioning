@@ -1,6 +1,6 @@
 # goblin-provisioning
 
-This is the repository containing an Ansible playbook for provisioning my Raspberry PI running Arch Linux ARM which is sitting in my closet.
+This is the repository containing an Ansible playbook for provisioning my Raspberry Pi running Arch Linux ARM which is sitting in my closet.
 
 <img src="https://cloud.githubusercontent.com/assets/759811/20446573/fa820624-ad9f-11e6-8cfb-554aca927988.png" width="500px">
 
