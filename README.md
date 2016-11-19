@@ -31,5 +31,5 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 ## Provisioning
 
 1. Ensure Ansible 2.2 is installed
-2. `ansible-playbook --ask-vault-pass -i 192.168.1.12, -e @secrets.yml provision.yml` (ansible-value password located in LastPass > Secure Notes > Applications Secrets > "goblin ansible-vault")
+2. `ansible-playbook --ask-vault-pass -i 192.168.1.12, -e @secrets.yml provision.yml` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "goblin ansible-vault")
  
