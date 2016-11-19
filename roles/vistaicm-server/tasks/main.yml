@@ -24,7 +24,14 @@
     state: present
     dest: "{{install_dir}}/www/index.html"
     regexp: 'garage_doors.+none'
-    line: "<div class="garage_doors" style="display: block;">"
+    line: "<div class='garage_doors' style='display: block;'>"
+
+- name: Configure pound_commands
+  lineinfile:
+    state: present
+    dest: "{{install_dir}}/config.js"
+    regexp: 'pound_commands'
+    line: "pound_commands: {{vistaicm_server_pound_commands}}"
 
 - name: npm install
   npm: path={{install_dir}} state=latest
@@ -38,4 +45,4 @@
   template: src=vistaicm-server.service.j2 dest=/etc/systemd/system/vistaicm-server.service
 
 - name: Start vistaicm-server-service now and at boot
-  systemd: enabled=yes state=started name=vistaicm-server daemon_reload=yes
+  systemd: enabled=yes state=restarted name=vistaicm-server daemon_reload=yes

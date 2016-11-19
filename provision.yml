@@ -13,6 +13,7 @@
   # - nest_password:
   # - nma_api_key:
   # - nma_url:  
+  # - vistaicm_server_pound_commands:
   pre_tasks:
     - name: 'Install python2'
       raw: pacman -Sy --noconfirm --needed python2 && ln -sf /usr/bin/python2 /usr/bin/python
