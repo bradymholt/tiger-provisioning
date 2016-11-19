@@ -19,6 +19,13 @@
   synchronize: src=/tmp/vistaicm-server-master/ dest={{install_dir}} recursive=yes
   delegate_to: "{{inventory_hostname}}"
 
+- name: Show Garage Door buttons
+  lineinfile:
+    state: present
+    dest: "{{install_dir}}/www/index.html"
+    regexp: 'garage_doors.+none'
+    line: "<div class="garage_doors" style="display: block;">"
+
 - name: npm install
   npm: path={{install_dir}} state=latest
 
