@@ -40,6 +40,8 @@
   template: src={{ item }} dest={{install_dir}}/hooks/{{ item | basename | regex_replace('\.j2','') }}
   with_fileglob:
     - ../templates/hooks/*.j2
+  tags:
+    - vistaicm-hooks
 
 - name: Install vistaicm-server-service systemd unit file
   template: src=vistaicm-server.service.j2 dest=/etc/systemd/system/vistaicm-server.service
