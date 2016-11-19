@@ -1,0 +1,12 @@
+module.exports = function (ICM) {
+	ICM.events.on('zoneStatusChanged', function(zoneNumber, isFaulted){
+		var day=new Date().getDay();
+		var hour=new Date().getHours();
+		if(zoneNumber==18 // Right garage door
+			&& !isFaulted // just closed
+			&& (day == 0) // on Sunday
+			&& (hour >= 8 && hour <= 11)){  // between 7AM-12PM
+		    ICM.executeCommand('F2'); // Arm AWAY
+		}	
+	});
+};
