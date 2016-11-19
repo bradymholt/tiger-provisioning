@@ -31,5 +31,6 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 ## Provisioning
 
 1. Ensure Ansible 2.2 is installed
-2. `ansible-playbook --ask-vault-pass -i 192.168.1.12, -e @secrets.yml provision.yml` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "goblin ansible-vault")
- 
+2. `provision.sh` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "goblin ansible-vault")
+
+To only update the vistaicm-server hooks, you can run `copy-hooks.sh`.
