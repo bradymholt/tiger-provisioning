@@ -2,7 +2,7 @@
   user: name=alarm state=absent
 
 - name: Add {{main_user}} user
-  user: name={{main_user}} shell=/bin/bash append=true
+  user: name={{main_user}} shell=/bin/bash append=true password={{main_user_password}}
 
 - name: Add {{main_user}} user public key to authorized_key
   authorized_key: user={{main_user}} key=https://github.com/{{ gh_pubkey_user }}.keys
