@@ -4,12 +4,22 @@
   hosts: all
   # Do not gather facts here because if host does not have python2 installed (i.e. Ubuntu 16) this will fail initially.  Gather facts later...
   gather_facts: false
+  vars:
+    - timezone: "America/Chicago"
+    - main_user: bholt
+    - gh_pubkey_user: bradyholt
+  # The following variables values are specified in secrets.yml.  When running ansible-playbook, "-e @secrets.yml" should be specified.
+  # - nest_username:
+  # - nest_password:
+  # - nma_api_key:
+  # - nma_url:  
   pre_tasks:
     - name: 'Install python2'
       raw: pacman -Sy --noconfirm --needed python2 && ln -sf /usr/bin/python2 /usr/bin/python
     - name: Gather facts
       setup: # Now gather facts: http://stackoverflow.com/a/31060268/626911
   roles:
+    - timezone
     - user
     - utils
     - node
