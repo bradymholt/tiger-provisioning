@@ -1,0 +1,7 @@
+[Service]
+ExecStart=/opt/insync-portable/client/insync-portable start --no-daemon
+Restart=always
+User={{main_user}}
+
+[Install]
+WantedBy=multi-user.target

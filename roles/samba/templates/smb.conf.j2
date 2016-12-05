@@ -1,0 +1,17 @@
+# Global Parameters
+[global]
+workgroup = MEGAMOUTH
+netbios name = GOBLIN
+follow symlinks = yes
+wide links = yes
+security = user
+map to guest = bad user
+unix extensions = no
+socket options = TCP_NODELAY IPTOS_LOWDELAY
+
+[Media]
+path = /home/bholt/media
+read only = no
+writable = yes
+guest ok = yes
+force user = {{main_user}} 

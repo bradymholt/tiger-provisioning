@@ -1,0 +1,47 @@
+- name: Check for insync installation     
+  stat: path={{install_dir}}
+  register: p
+
+- name: Cleanup previous archive download
+  file: path=/tmp/insync.zip state=absent
+  when: not p.stat.exists
+  
+- name: Cleanup previous unarchive directory
+  file: path=/tmp/insync-portable state=absent
+  when: not p.stat.exists
+
+- name: Download insync (armhf) archive
+  get_url:
+    url: http://s.insynchq.com/test_builds/armhf/insync-armhf_1.3.12.36116_i386.tar.bz2
+    dest: /tmp/insync.tar.bz2
+  when: not p.stat.exists
+
+- name: Unzip archive
+  unarchive: src=/tmp/insync.tar.bz2 dest=/tmp/ copy=no
+  when: not p.stat.exists
+
+- name: Create insync install directory
+  file: path={{install_dir}} state=directory mode=0775
+  when: not p.stat.exists
+
+- name: Sync files to {{install_dir}}
+  synchronize: src=/tmp/insync-portable/ dest={{install_dir}} recursive=yes
+  delegate_to: "{{inventory_hostname}}"
+  when: not p.stat.exists
+
+- name: Install insync-service systemd unit file
+  template: src=insync.service.j2 dest=/etc/systemd/system/insync.service
+
+- name: Start insync-service now and at boot
+  systemd: enabled=yes state=restarted name=insync daemon_reload=yes
+
+- name: Copy insync CLI helper script
+  template:
+    src: insync.j2
+    dest: "{{install_dir}}/insync"
+    mode: 0775
+
+- name: Symlink insync CLI helper from /usr/bin
+  file: src="{{install_dir}}/insync" dest=/usr/bin/insync state=link
+
+- debug: msg="Insync provisioned but must be manually configured (insync add_account -a 123ABC -p ~/media/gdrive && insync manage_selective_sync john.doe@gmail.com)"

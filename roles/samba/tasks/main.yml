@@ -1,0 +1,10 @@
+- name: Install samba
+  pacman: name=samba state=present
+
+- name: Setup samba config file
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+
+- name: Start samba service now and at boot
+  systemd: enabled=yes state=restarted name=smbd daemon_reload=yes

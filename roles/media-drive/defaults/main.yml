@@ -1,0 +1,3 @@
+---
+device_uuid: "45BB-995F"
+mount_dest: "/home/{{main_user}}/media" 
