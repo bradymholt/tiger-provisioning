@@ -5,7 +5,7 @@
 - name: Mount media drive by UUID
   mount:
     name: "{{media_mount_dest}}"
-    src: "UUID={{device_uuid}}"
+    src: "UUID={{media_device_uuid}}"
     fstype: vfat
     opts: "nofail,noatime,user,uid={{main_user}},gid={{main_user}},rw,umask=000"
     state: present

@@ -8,6 +8,7 @@
     - timezone: "America/Chicago"
     - main_user: bholt
     - gh_pubkey_user: bradyholt
+    - media_device_uuid: "45BB-995F"
   # The following variables values are specified in secrets.yml.  When running ansible-playbook, "-e @secrets.yml" should be specified.
   # - nest_username:
   # - nest_password:
