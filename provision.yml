@@ -25,7 +25,7 @@
     - utils
     - node
     - vistaicm-server
-    - { role: media-drive, tags: ['media-drive'], device_uuid: '45BB-995F' }
+    - { role: media-drive, tags: ['media-drive'] }
     - { role: insync, tags: ['insync'] }
     - { role: samba, tags: ['samba'] }
     - { role: dlna, tags: ['dlna'], movies_dir: 'Movies' }
