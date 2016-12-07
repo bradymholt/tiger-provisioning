@@ -1,2 +1,3 @@
 ---
 install_dir: /opt/insync-portable
+insync_sync_directory: "{{media_mount_dest}}/gdrive"

@@ -1,5 +1,5 @@
 ---
-- name: Check for insync installation     
+- name: Check for existing insync installation     
   stat: path={{install_dir}}
   register: p
 
@@ -29,12 +29,11 @@
   synchronize: src=/tmp/insync-portable/ dest={{install_dir}} recursive=yes
   delegate_to: "{{inventory_hostname}}"
   when: not p.stat.exists
+  notify: restart insync-service
 
 - name: Install insync-service systemd unit file
   template: src=insync.service.j2 dest=/etc/systemd/system/insync.service
-
-- name: Start insync-service now and at boot
-  systemd: enabled=yes state=restarted name=insync 
+  notify: restart insync-service
 
 - name: Copy insync CLI helper script
   template:
@@ -45,4 +44,7 @@
 - name: Symlink insync CLI helper from /usr/bin
   file: src="{{install_dir}}/insync" dest=/usr/bin/insync state=link
 
-- debug: msg="Insync provisioned but must be manually configured (insync add_account -a 123ABC -p ~/media/gdrive && insync manage_selective_sync john.doe@gmail.com)"
+- name: Create sync directory
+  file: path={{insync_sync_directory}} state=directory owner={{main_user}} group={{main_user}}
+
+- debug: msg="Insync provisioned but must be manually configured (insync add_account -a 123ABC -p '{{insync_sync_directory}}' && insync manage_selective_sync john.doe@gmail.com)"

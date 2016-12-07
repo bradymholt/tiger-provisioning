@@ -1,0 +1,3 @@
+---
+- name: restart insync-service
+  systemd: enabled=yes state=restarted name=insync 

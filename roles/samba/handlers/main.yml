@@ -1,0 +1,3 @@
+---
+- name: restart samba
+  systemd: enabled=yes state=restarted name=smbd

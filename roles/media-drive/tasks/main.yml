@@ -1,9 +1,10 @@
+---
 - name: Create media drive mount directory
-  file: path={{mount_dest}} owner={{main_user}} group={{main_user}} state=directory 
+  file: path={{media_mount_dest}} owner={{main_user}} group={{main_user}} state=directory 
 
-- name: Mount up media drive by UUID
+- name: Mount media drive by UUID
   mount:
-    name: "{{mount_dest}}"
+    name: "{{media_mount_dest}}"
     src: "UUID={{device_uuid}}"
     fstype: vfat
     opts: "nofail,noatime,user,uid={{main_user}},gid={{main_user}},rw,umask=000"

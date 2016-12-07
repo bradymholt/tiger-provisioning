@@ -1,3 +1,4 @@
+---
 - name: Install Node.js
   pacman: name=nodejs state=present
 

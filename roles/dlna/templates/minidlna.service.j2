@@ -1,0 +1,20 @@
+[Unit]
+Description=minidlna server
+After=network.target
+
+[Service]
+Type=simple
+User={{main_user}}
+Group={{main_user}}
+ExecStart=/usr/bin/minidlnad -S
+ProtectSystem=full
+
+# The primary reason we are using our own unit file for minidlna is to turn off ProtectHome
+# so we can use a folder in /home/... as the media directory.
+# ProtectHome=off
+
+PrivateDevices=on
+NoNewPrivileges=on
+
+[Install]
+WantedBy=multi-user.target
