@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User={{main_user}}
-Group={{main_user}}
+User=minidlna
+Group=minidlna
 ExecStart=/usr/bin/minidlnad -S
 ProtectSystem=full
 

@@ -11,20 +11,6 @@
     dest: /etc/minidlna.conf
   notify: restart mindlna-user
 
-- name: Give user {{main_user}} ownership of cache directory
-  file:
-    path: /var/cache/minidlna
-    owner: "{{main_user}}"
-    group: "{{main_user}}"
-  notify: restart mindlna-user
-
-- name: Give user {{main_user}} ownership of run/pid directory
-  file:
-    path: /var/run/minidlna
-    owner: "{{main_user}}"
-    group: "{{main_user}}"
-  notify: restart mindlna-user
-
 - name: Install minidlna systemd unit file
   template: src=minidlna.service.j2 dest=/etc/systemd/system/minidlna-user.service
   notify: restart mindlna-user

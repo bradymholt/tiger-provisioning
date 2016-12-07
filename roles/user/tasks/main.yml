@@ -4,6 +4,11 @@
 - name: Add {{main_user}} user
   user: name={{main_user}} shell=/bin/bash append=true password={{main_user_password}}
 
+- name: Allow {{main_user}} user home folder to be traverable (mainly for minidlna user)
+  file:
+    path: /home/{{main_user}}
+    mode: 0711
+
 - name: Add {{main_user}} user public key to authorized_key
   authorized_key: user={{main_user}} key=https://github.com/{{ gh_pubkey_user }}.keys
 
