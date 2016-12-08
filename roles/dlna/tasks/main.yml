@@ -14,3 +14,6 @@
 - name: Install minidlna systemd unit file
   template: src=minidlna.service.j2 dest=/etc/systemd/system/minidlna-user.service
   notify: restart mindlna-user
+
+# Sometimes minidlna does not update database when new files are added.  To force a rescan, run the following:
+#  sudo systemctl stop minidla-user && sudo minidlnad -R && udo systemctl staet minidla-user
