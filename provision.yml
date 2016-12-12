@@ -5,6 +5,7 @@
   # Do not gather facts here because if host does not have python2 installed (i.e. Ubuntu 16) this will fail initially.  Gather facts later...
   gather_facts: false
   vars:
+    - hostname: "goblin"
     - timezone: "America/Chicago"
     - main_user: bholt
     - gh_pubkey_user: bradyholt
@@ -21,6 +22,7 @@
     - name: Gather facts
       setup: # Now gather facts: http://stackoverflow.com/a/31060268/626911
   roles:
+    - hostname
     - timezone
     - user
     - utils
