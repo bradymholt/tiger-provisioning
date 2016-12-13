@@ -29,7 +29,7 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 2. `su root` (password: root)
 3. `mkdir ~/.ssh`
 4. `curl -o ~/.ssh/authorized_keys https://github.com/bradyholt.keys`
-5. `sudo reboot`
+5. `reboot`
 
 ## Provisioning
 
