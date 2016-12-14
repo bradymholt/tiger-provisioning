@@ -1,12 +1,8 @@
 ---
-- name: Install unzip
-  pacman: name=unzip state=present
-
-- name: Install rsync
-  pacman: name=rsync state=present
-
-- name: Install htop
-  pacman: name=htop state=present
-
-- name: Install vim
-  pacman: name=vim state=present
+- name: Install user utilities
+  action: pacman name={{item}} state=installed
+  with_items:
+       - unzip
+       - rsync
+       - htop
+       - vim

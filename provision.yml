@@ -2,7 +2,7 @@
 - name: provision
   remote_user: root
   hosts: all
-  # Do not gather facts here because if host does not have python2 installed (i.e. Ubuntu 16) this will fail initially.  Gather facts later...
+  # Do not gather facts here because initially python2, an Ansible dependency is not installed
   gather_facts: false
   vars:
     - hostname: "goblin"
@@ -11,6 +11,7 @@
     - gh_pubkey_user: bradyholt
     - media_device_uuid: "45BB-995F"
   # The following variables values are specified in secrets.yml.  When running ansible-playbook, "-e @secrets.yml" should be specified.
+  # - main_user_password:
   # - nest_username:
   # - nest_password:
   # - nma_api_key:
@@ -25,7 +26,7 @@
     - hostname
     - timezone
     - user
-    - utils
+    - { role: utils, tags: ['utils'] }
     - cron
     - node
     - vistaicm-server
