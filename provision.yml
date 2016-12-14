@@ -26,6 +26,7 @@
     - timezone
     - user
     - utils
+    - cron
     - node
     - vistaicm-server
     - { role: media-drive, tags: ['media-drive'] }

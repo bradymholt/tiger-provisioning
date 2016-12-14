@@ -1,4 +1,5 @@
 ---
 dependencies:
+- { role: cron }
 - { role: media-drive }
 - { role: insync }
