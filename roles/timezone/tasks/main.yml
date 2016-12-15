@@ -1,3 +1,4 @@
 ---
 - name: Set timezone
-  command: timedatectl set-timezone {{timezone}}
+  timezone:
+    name: "{{timezone}}"
