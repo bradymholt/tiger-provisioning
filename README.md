@@ -8,8 +8,8 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 
 ## Setup Arch Linux ARM on Raspberry Pi
 
-1. Following the [Mount SD card in VirtualBox from Mac OS X Host](Mount SD card in VirtualBox from Mac OS X Host) guide to get access to SD Card from VirtualBox running on OS X host.
-1. Prepare SD Card with [these instructions](https://archlinuxarm.org/platforms/armv6/raspberry-pi)
+1. Follow the [Mount SD card in VirtualBox from Mac OS X Host](http://www.geekytidbits.com/mount-sd-card-virtualbox-from-mac-osx/) guide to get access to SD Card from VirtualBox running on OS X host.
+2. Prepare SD Card with [these instructions](https://archlinuxarm.org/platforms/armv6/raspberry-pi)
 2. Before running `umount boot root` from above, run `sync`.
 3. After running  `umount boot root` from above, shutdown VirtualBox and then Eject the SD Card from OS X.
 2. Insert SD Card into Pi and boot
