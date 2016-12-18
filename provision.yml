@@ -5,7 +5,7 @@
   # Do not gather facts here because initially python2, an Ansible dependency is not installed
   gather_facts: false
   vars:
-    - hostname: "goblin"
+    - hostname: "tiger"
     - timezone: "America/Chicago"
     - main_user: bholt
     - gh_pubkey_user: bradyholt

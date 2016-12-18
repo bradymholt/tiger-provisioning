@@ -1,4 +1,4 @@
-# goblin-provisioning
+# tiger-provisioning
 
 This is the repository containing an Ansible playbook for provisioning my Raspberry Pi running Arch Linux ARM which is sitting in my closet.
 
@@ -34,7 +34,7 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 ## Provisioning
 
 1. Ensure Ansible 2.2 is installed
-2. `provision.sh` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "goblin ansible-vault")
+2. `provision.sh` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "tiger ansible-vault")
 3. Manual insync configuration - After provisioning is complete, insync needs to be configured manually since it cannot be automated.
    1. Go to [https://goo.gl/jv797S](https://goo.gl/jv797S), login with the [john.doe@gmail.com] account and get an auth code.
    2. Run `insync add_account -a [auth_token_just_obtained_above] -p '{{insync_sync_directory}}`
