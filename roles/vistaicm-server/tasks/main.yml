@@ -22,8 +22,11 @@
   when: not p.stat.exists
 
 - name: Create vistaicm-server install directory
-  file: path={{install_dir}} state=directory mode=0775
+  file: path={{install_dir}} state=directory 
   when: not p.stat.exists
+
+- name: Set permissions on install directory
+  file: path={{install_dir}} owner={{main_user}} group={{main_user}} recurse=yes
 
 - name: Sync files to {{install_dir}}
   synchronize: src=/tmp/vistaicm-server-master/ dest={{install_dir}} recursive=yes
