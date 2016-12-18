@@ -42,9 +42,9 @@ module.exports = function (ICM, UI) {
 
 	// Setup UDP broadcast socket to discover API address
 	var udpClient = dgram.createSocket('udp4');
-	udpClient.bind(41234);
+	udpClient.bind(41234); // Garage Door Relay API brodcasts on this port
 	udpClient.on('message', function (msg, rinfo) {
-		if (!relayApiIpAddress || relayApiIpAddress != rinfo.address) {
+		if (!relayApiIpAddress) {
 			console.log("Garage Door Relay API discovered at: " + rinfo.address);
 		}
 

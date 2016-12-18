@@ -35,14 +35,6 @@
   npm: path={{install_dir}} state=latest
   when: not p.stat.exists
 
-- name: Show Garage Door buttons
-  lineinfile:
-    state: present
-    dest: "{{install_dir}}/www/index.html"
-    regexp: 'garage_doors.+none'
-    line: "<div class='garage_doors' style='display: block;'>"
-  when: not p.stat.exists
-
 - name: Configure pound_commands
   lineinfile:
     state: present
