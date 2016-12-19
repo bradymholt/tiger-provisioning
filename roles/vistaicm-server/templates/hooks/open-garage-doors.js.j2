@@ -28,7 +28,7 @@ module.exports = function (ICM, UI) {
 		console.log(command.description + ": sending command");		
 		console.log('Executing Command: PUT ' + request_url);
 		
-		request({ url: request_url, method: 'PUT', json: { relay: { state: "closed" } } }, function (error, response, body) {
+		request({ url: request_url, method: 'PUT', json: { relay: { state: "triggered" } } }, function (error, response, body) {
 			if (error) {
 				console.log(command.description + error);
 			} else if (!response.statusCode.toString().startsWith("2")) {
