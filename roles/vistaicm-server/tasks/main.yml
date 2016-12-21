@@ -1,39 +1,28 @@
 ---
-- name: Check for existing vistaicm-server installation     
-  stat: path={{install_dir}}
-  register: p
-
 - name: Cleanup previous archive download
   file: path=/tmp/vistaicm.zip state=absent
-  when: not p.stat.exists
 
 - name: Cleanup previous unarchive directory
   file: path=/tmp/vistaicm-server-master state=absent
-  when: not p.stat.exists
 
 - name: Download vistaicm-server archive from Github repo
   get_url:
     url: https://github.com/bradyholt/vistaicm-server/archive/master.zip
     dest: /tmp/vistaicm.zip
-  when: not p.stat.exists
 
 - name: Unzip archive
   unarchive: src=/tmp/vistaicm.zip dest=/tmp/ copy=no
-  when: not p.stat.exists
 
 - name: Create vistaicm-server install directory
   file: path={{install_dir}} state=directory 
-  when: not p.stat.exists
 
 - name: Sync files to {{install_dir}}
   synchronize: src=/tmp/vistaicm-server-master/ dest={{install_dir}} recursive=yes
   delegate_to: "{{inventory_hostname}}"
   notify: restart vistaicm-server-service
-  when: not p.stat.exists
 
 - name: npm install
   npm: path={{install_dir}} state=latest
-  when: not p.stat.exists
 
 - name: Configure pound_commands
   lineinfile:
