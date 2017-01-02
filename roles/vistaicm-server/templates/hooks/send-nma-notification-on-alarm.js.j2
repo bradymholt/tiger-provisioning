@@ -6,7 +6,7 @@ module.exports = function (ICM) {
 	   if (alarmStatus == 1 || alarmStatus == 2) {
 	   		nma(
 	   			apiKey, 
-	   			'alarm', 
+	   			'tiger', 
 	   			alarmStatus == 1 ? '*** Security Alarm ***' : '*** Fire Alarm ***', 
 	   			ICM.getAlarmStatusDetail(false),
 	   			2,
