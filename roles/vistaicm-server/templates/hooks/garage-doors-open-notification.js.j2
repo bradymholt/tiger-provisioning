@@ -1,0 +1,30 @@
+var nma = require('nma');
+var apiKey = '{{nma_api_key}}';
+
+function monitorGarageDoor(ICM, zoneNumber, duration, description) {
+	console.log("Monitoring Garage Door (Zone " + zoneNumber + ") for " + duration + " milliseconds and will notify if still open");
+	// Check if open in 10 minutes
+	setTimeout(function(){
+		if (ICM.zones[zoneNumber]==true) {
+			console.log("Garage Door (Zone " + zoneNumber + ") has been open for " + duration + " milliseconds; sending notification!");
+			nma(
+				apiKey, 
+				'tiger', 
+				description + ' Open',
+				description + ' Has Been Open for ' + (duration / 1000 ) + ' Minutes',
+				1,
+				'{{nma_url}}'
+			); 
+		}
+	}, duration);
+}
+
+module.exports = function (ICM) {
+	ICM.events.on('zoneStatusChanged', function(zoneNumber, isFaulted){
+		if (zoneNumber==17 && isFaulted) { // Left garage door opened
+			monitorGarageDoor(ICM, zoneNumber, 600000, "Left Garage Door");
+		} else if (zoneNumber==18 && isFaulted) { // Right garage door opened
+			monitorGarageDoor(ICM, zoneNumber, 600000, "Right Garage Door");
+		}
+	});
+};
