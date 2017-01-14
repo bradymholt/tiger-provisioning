@@ -11,7 +11,7 @@ function monitorGarageDoor(ICM, zoneNumber, duration, description) {
 				apiKey, 
 				'tiger', 
 				description + ' Open',
-				description + ' Has Been Open for ' + (duration / 1000 ) + ' Minutes',
+				description + ' Has Been Open for ' + (duration / 1000 / 10 ) + ' Minutes',
 				1,
 				'{{nma_url}}'
 			); 
