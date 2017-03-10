@@ -5,7 +5,7 @@ var relayApiPort = 3000;
 
 module.exports = function (ICM, UI) {
 	var commands = {
-		'f5e56965': { description: 'LEFT GARAGE', relayNumber: '2' },	
+		'f5e56965': { description: 'LEFT GARAGE', relayNumber: '2' },
 		'b3915a31': { description: 'RIGHT GARAGE', relayNumber: '1' }
 	};
 
@@ -19,23 +19,25 @@ module.exports = function (ICM, UI) {
 		var command = commands[id];
 
 		if (!relayApiIpAddress) {
-			console.log(command.description + ": Error: Garage Door Relay API not discovered");		
+			console.log(command.description + ": Error: Garage Door Relay API not discovered");
 			return;
 		}
 
-		var request_url = `http://${relayApiIpAddress}:${relayApiPort}/relays/${command.relayNumber}`;
+		var request_url = `http://${relayApiIpAddress}:${relayApiPort}/relay/${command.relayNumber}/command/toggle`;
 
-		console.log(command.description + ": sending command");		
+		console.log(command.description + ": sending command");
 		console.log('Executing Command: PUT ' + request_url);
-		
-		request({ url: request_url, method: 'PUT', json: { relay: { state: "triggered" } } }, function (error, response, body) {
-			if (error) {
-				console.log(command.description + error);
-			} else if (!response.statusCode.toString().startsWith("2")) {
-				console.log(command.description + " Error: Status Code returned was " + response.statusCode.toString());
-			} else {
-				console.log('Got response: ' + response.statusCode.toString());
-				console.log(command.description + ": SUCCESS");		
+
+		request({
+			url: request_url, method: 'POST', function(error, response, body) {
+				if (error) {
+					console.log(command.description + error);
+				} else if (!response.statusCode.toString().startsWith("2")) {
+					console.log(command.description + " Error: Status Code returned was " + response.statusCode.toString());
+				} else {
+					console.log('Got response: ' + response.statusCode.toString());
+					console.log(command.description + ": SUCCESS");
+				}
 			}
 		});
 	});
