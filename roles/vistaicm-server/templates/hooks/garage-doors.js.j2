@@ -73,13 +73,17 @@ module.exports = function (ICM, UI) {
 	ICM.events.on('externalCommand', function (id) {
 		var command = commands[id];
 
-		if (!relayApiIpAddress) {
-			console.log(command.description + ": Error: Garage Door Relay API not discovered");
-			return;
-		}
+		if (!command) {
+			// Do nothing
+		} else {
+			if (!relayApiIpAddress) {
+				console.log(command.description + ": Error: Garage Door Relay API not discovered");
+				return;
+			}
 
-		console.log(command.description + ": sending command");
-		sendRequest('POST', `relay/${command.relayNumber}/command/toggle`);
+			console.log(command.description + ": sending command");
+			sendRequest('POST', `relay/${command.relayNumber}/command/toggle`);
+		}
 	});
 
 	// Monitor status changes
