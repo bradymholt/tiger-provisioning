@@ -15,7 +15,7 @@
   # - nest_username:
   # - nest_password:
   # - nma_api_key:
-  # - nma_url:  
+  # - nma_url:
   # - vistaicm_server_pound_commands:
   pre_tasks:
     - name: 'Install python2'
@@ -29,6 +29,7 @@
     - { role: utils, tags: ['utils'] }
     - cron
     - node
+    - castnow
     - vistaicm-server
     - { role: media-drive, tags: ['media-drive'] }
     - { role: insync, tags: ['insync'] }

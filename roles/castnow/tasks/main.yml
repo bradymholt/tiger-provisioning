@@ -1,0 +1,5 @@
+---
+- name: Install castnow
+  npm:
+    name: castnow
+    global: yes
