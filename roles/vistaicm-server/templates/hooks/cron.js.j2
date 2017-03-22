@@ -1,9 +1,17 @@
 var cronJob = require('cron').CronJob;
+var request = require('request');
 
 module.exports = function (ICM) {
-	//ARM nightly at 11PM
+	//Go to bed
 	new cronJob('0 0 24 * * *', function(){
-    		ICM.executeCommand('F4'); //F4 = Function Key #4 on Keypad
+			//ARM alarm; F4 = Function Key #4 on Keypad
+    		ICM.executeCommand('F4');
+			// Turn den light off
+			ICM.executeCommand('E-493be820');
+	}).start();
+
+	//Turn off office light at 6PM
+	new cronJob('0 0 18 * * *', function(){
+    		ICM.executeCommand('E-f9a90ef7');
 	}).start();
 };
-
