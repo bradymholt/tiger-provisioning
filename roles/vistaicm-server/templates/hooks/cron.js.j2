@@ -6,13 +6,13 @@ module.exports = function (ICM) {
 	new cronJob('0 0 24 * * *', function(){
 	
 	// Play bedtime sound on Google Home
-	require('child_process').exec('castnow --address 192.168.1.18 https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/security-system-enter-code-keypad-beeps_MJFDZnVu.mp3').unref();
+        // require('child_process').exec('castnow --address 192.168.1.18 https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/security-system-enter-code-keypad-beeps_MJFDZnVu.mp3').unref();
 
 	// ARM alarm; F4 = Function Key #4 on Keypad
     	ICM.executeCommand('F4');
 
 	// Turn den light off
-	ICM.executeCommand('E-493be820');
+        ICM.executeCommand('E-493be820');
 	
 	}).start();
 
