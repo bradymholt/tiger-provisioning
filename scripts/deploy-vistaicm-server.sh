@@ -1,0 +1,1 @@
+scp ~/dev/vistaicm-server/server.js tiger:/opt/vistaicm-server && ssh tiger "sudo systemctl restart vistaicm-server"

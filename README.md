@@ -43,4 +43,9 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
    5. Navigate down to "Movies" and use the `Space` key to select it.
    6. Use the `Tab` key until "OK" is selected.  Use `Enter` key to save and exit.
 
-To only update the vistaicm-server hooks, you can run `copy-hooks.sh`.
+## vistaicm-server
+
+vistaicm-server can be updated partially, either by deploying the hooks or by deploying the latest version of the code from the local development folder.
+
+- To only update the vistaicm-server hooks, you can run `copy-hooks.sh`.
+- To copy over the latest ~/dev/vistaicm-server/server.js file and restart the server, run `./scripts/deploy-vistaicm-server.sh`.
