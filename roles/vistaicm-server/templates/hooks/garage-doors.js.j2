@@ -41,22 +41,6 @@ function monitorGarageDoor(ICM, zoneNumber, durationMinutes, description) {
 	}, durationMilliseconds);
 }
 
-function updateGarageDoorStatus(){
-	var request_url = `http://hammerhead:3000/relay/1/status`;
-	request({
-		url: request_url, method: 'PUT', function(error, response, body) {
-			if (error) {
-				console.log(command.description + error);
-			} else if (!response.statusCode.toString().startsWith("2")) {
-				console.log(command.description + " Error: Status Code returned was " + response.statusCode.toString());
-			} else {
-				console.log('Got response: ' + response.statusCode.toString());
-				console.log(command.description + ": SUCCESS");
-			}
-		}
-	});
-}
-
 module.exports = function (ICM, UI) {
 	var commands = {
 		'f5e56965': { description: 'LEFT GARAGE', relayNumber: '2' },
@@ -94,14 +78,14 @@ module.exports = function (ICM, UI) {
 			sendRequest('PUT', `relay/2/status`, { status: isFaulted });
 
 			if (isFaulted) {
-				monitorGarageDoor(ICM, zoneNumber, 60, "Left Garage Door");
+				// monitorGarageDoor(ICM, zoneNumber, 60, "Left Garage Door");
 			}
 		} else if (zoneNumber==18) { // Right garage door
 			// Update status on the relay handler
 			sendRequest('PUT', `relay/1/status`, { status: isFaulted });
 
 			if (isFaulted) {
-				monitorGarageDoor(ICM, zoneNumber, 60, "Right Garage Door");
+				// monitorGarageDoor(ICM, zoneNumber, 60, "Right Garage Door");
 			}
 		}
 	});
