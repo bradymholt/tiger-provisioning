@@ -1,103 +1,127 @@
-var request = require('request');
-var dgram = require('dgram');
+var request = require("request");
+var dgram = require("dgram");
 var relayApiIpAddress = null;
 var relayApiPort = 3000;
 
-function sendRequest(method, path, body){
-	var request_url = `http://${relayApiIpAddress}:${relayApiPort}/${path}`;
-	console.log(`Sending Request: ${method} ${request_url}`);
+function sendRequest(method, path, body) {
+  var request_url = `http://${relayApiIpAddress}:${relayApiPort}/${path}`;
+  console.log(`Sending Request: ${method} ${request_url}`);
 
-	request({
-		url: request_url, method: method, json: true, body: body, function(error, response, body) {
-			if (error) {
-				console.log(command.description + error);
-			} else if (!response.statusCode.toString().startsWith("2")) {
-				console.log(command.description + " Error: Status Code returned was " + response.statusCode.toString());
-			} else {
-				console.log('Got response: ' + response.statusCode.toString());
-				console.log(command.description + ": SUCCESS");
-			}
-		}
-	});
+  request({
+    url: request_url,
+    method: method,
+    json: true,
+    body: body,
+    function(error, response, body) {
+      if (error) {
+        console.log(command.description + error);
+      } else if (!response.statusCode.toString().startsWith("2")) {
+        console.log(
+          command.description +
+            " Error: Status Code returned was " +
+            response.statusCode.toString()
+        );
+      } else {
+        console.log("Got response: " + response.statusCode.toString());
+        console.log(command.description + ": SUCCESS");
+      }
+    }
+  });
 }
 
 function monitorGarageDoor(ICM, zoneNumber, durationMinutes, description) {
-	var durationMilliseconds = (durationMinutes * 60 * 1000);
-	console.log("Monitoring Garage Door (Zone " + zoneNumber + ") for " + durationMinutes + " minutes and will notify if still open");
+  var durationMilliseconds = durationMinutes * 60 * 1000;
+  console.log(
+    "Monitoring Garage Door (Zone " +
+      zoneNumber +
+      ") for " +
+      durationMinutes +
+      " minutes and will notify if still open"
+  );
 
-	// Check if open in durationMinutes
-	setTimeout(function(){
-		if (ICM.zones[zoneNumber]==true) {
-			console.log("Garage Door (Zone " + zoneNumber + ") has been open for " + durationMinutes + " minutes; sending notification!");
-			nma(
-				apiKey,
-				'tiger',
-				description + ' Open',
-				description + ' Has Been Open for ' +  durationMinutes + ' Minutes',
-				1,
-				'{{nma_url}}'
-			);
-		}
-	}, durationMilliseconds);
+  // Check if open in durationMinutes
+  setTimeout(function() {
+    if (ICM.zones[zoneNumber] == true) {
+      console.log(
+        "Garage Door (Zone " +
+          zoneNumber +
+          ") has been open for " +
+          durationMinutes +
+          " minutes; sending notification!"
+      );
+      nma(
+        apiKey,
+        "tiger",
+        description + " Open",
+        description + " Has Been Open for " + durationMinutes + " Minutes",
+        1,
+        "{{nma_url}}"
+      );
+    }
+  }, durationMilliseconds);
 }
 
-module.exports = function (ICM, UI) {
-	var commands = {
-		'f5e56965': { description: 'LEFT GARAGE', relayNumber: '2' },
-		'b3915a31': { description: 'RIGHT GARAGE', relayNumber: '1' }
-	};
+module.exports = function(ICM, UI) {
+  var commands = {
+    f5e56965: { description: "LEFT GARAGE", relayNumber: "2" },
+    b3915a31: { description: "RIGHT GARAGE", relayNumber: "1" }
+  };
 
-	// add buttons for each command
-	Object.keys(commands).forEach(function (id) {
-		var label = commands[id].description;
-		UI.addButton(label, id, false, true);
-	});
+  // add buttons for each command
+  Object.keys(commands).forEach(function(id) {
+    var label = commands[id].description;
+    UI.addButton(label, id, false, true);
+  });
 
-	// Handle commands
-	ICM.events.on('externalCommand', function (id) {
-		var command = commands[id];
+  // Handle commands
+  ICM.events.on("externalCommand", function(id) {
+    var command = commands[id];
 
-		if (!command) {
-			// Do nothing
-		} else {
-			if (!relayApiIpAddress) {
-				console.log(command.description + ": Error: Garage Door Relay API not discovered");
-				return;
-			}
+    if (!command) {
+      // Do nothing
+    } else {
+      if (!relayApiIpAddress) {
+        console.log(
+          command.description + ": Error: Garage Door Relay API not discovered"
+        );
+        return;
+      }
 
-			console.log(command.description + ": sending command");
-			sendRequest('POST', `relay/${command.relayNumber}/command/toggle`);
-		}
-	});
+      console.log(command.description + ": sending command");
+      sendRequest("POST", `relay/${command.relayNumber}/command/toggle`);
+    }
+  });
 
-	// Monitor status changes
-	ICM.events.on('zoneStatusChanged', function(zoneNumber, isFaulted){
-		if (zoneNumber==17) { // Left garage door
+  // Monitor status changes
+  ICM.events.on("zoneStatusChanged", function(zoneNumber, isFaulted) {
+    if (zoneNumber == 17) {
+      // Left garage door
 
-			// Update status on the relay handler
-			sendRequest('PUT', `relay/2/status`, { status: isFaulted });
+      // Update status on the relay handler
+      sendRequest("PUT", `relay/2/status`, { status: isFaulted });
 
-			if (isFaulted) {
-				// monitorGarageDoor(ICM, zoneNumber, 60, "Left Garage Door");
-			}
-		} else if (zoneNumber==18) { // Right garage door
-			// Update status on the relay handler
-			sendRequest('PUT', `relay/1/status`, { status: isFaulted });
+      if (isFaulted) {
+        // monitorGarageDoor(ICM, zoneNumber, 60, "Left Garage Door");
+      }
+    } else if (zoneNumber == 18) {
+      // Right garage door
+      // Update status on the relay handler
+      sendRequest("PUT", `relay/1/status`, { status: isFaulted });
 
-			if (isFaulted) {
-				// monitorGarageDoor(ICM, zoneNumber, 60, "Right Garage Door");
-			}
-		}
-	});
+      if (isFaulted) {
+        // monitorGarageDoor(ICM, zoneNumber, 60, "Right Garage Door");
+      }
+    }
+  });
 
-	// Setup UDP broadcast socket to discover API address
-	var udpClient = dgram.createSocket('udp4');
-	udpClient.bind(41234);
-	udpClient.on('message', function (msg, rinfo) {
-		if (!relayApiIpAddress || relayApiIpAddress != rinfo.address) {
-			console.log("Garage Door Relay API discovered at: " + rinfo.address);
-		}
+  // Setup UDP broadcast socket to discover API address
+  var udpClient = dgram.createSocket("udp4");
+  udpClient.bind(41234);
+  udpClient.on("message", function(msg, rinfo) {
+    if (!relayApiIpAddress || relayApiIpAddress != rinfo.address) {
+      console.log("Garage Door Relay API discovered at: " + rinfo.address);
+    }
 
-		relayApiIpAddress = rinfo.address;
-	});
+    relayApiIpAddress = rinfo.address;
+  });
 };
