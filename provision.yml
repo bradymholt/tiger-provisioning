@@ -32,6 +32,3 @@
     - castnow
     - vistaicm-server
     - { role: media-drive, tags: ['media-drive'] }
-    - { role: insync, tags: ['insync'] }
-    - { role: samba, tags: ['samba'] }
-    - { role: dlna, tags: ['dlna'], movies_dir: 'Movies' }

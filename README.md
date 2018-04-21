@@ -34,14 +34,7 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 ## Provisioning
 
 1. Ensure Ansible 2.2 is installed
-2. `provision.sh` (ansible-vault password located in LastPass > Secure Notes > Applications Secrets > "tiger ansible-vault")
-3. Manual insync configuration - After provisioning is complete, insync needs to be configured manually since it cannot be automated.
-   1. Go to [https://goo.gl/jv797S](https://goo.gl/jv797S), login with the [john.doe@gmail.com] account and get an auth code.
-   2. Run `insync add_account -a [auth_token_just_obtained_above] -p '{{insync_sync_directory}}`
-   3. Run `insync manage_selective_sync john.doe@gmail.com`
-   4. Type `^X` and then selected "Uncheck all".
-   5. Navigate down to "Movies" and use the `Space` key to select it.
-   6. Use the `Tab` key until "OK" is selected.  Use `Enter` key to save and exit.
+2. `provision.sh` (ansible-vault password located Google Drive > Secrets > Passwords)
 
 ## vistaicm-server
 
