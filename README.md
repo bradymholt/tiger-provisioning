@@ -42,3 +42,10 @@ vistaicm-server can be updated partially, either by deploying the hooks or by de
 
 - To only update the vistaicm-server hooks, you can run `copy-hooks.sh`.
 - To copy over the latest ~/dev/vistaicm-server/server.js file and restart the server, run `./scripts/deploy-vistaicm-server.sh`.
+
+### Honeywell VISA ICM Configuration
+
+ - Device Address = 18
+ - Setup site: http://192.168.1.28/setup
+ - Mobile site: http://192.168.1.28/pda
+ 
