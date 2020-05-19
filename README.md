@@ -14,15 +14,6 @@ This is the repository containing an Ansible playbook for provisioning my Raspbe
 3. After running  `umount boot root` from above, shutdown VirtualBox and then Eject the SD Card from OS X.
 2. Insert SD Card into Pi and boot
 
-## Setup DNS/DHCP
-
-1. Setup DDNS domain on freedns.afraid.org
-2. In LAN Router (Tomato) at http://192.168.1.1
- - Go to Status > Device List and find device with name `alarmpi`
- - Click `[static]` (redirects to Basic > Static DHCP/ARP/IPT) and configure a static IP of 192.168.1.12
- - Go to Basic > DDNS and setup FreeDNS DDNS update with correct Token for domain
- - Go to Port Forwarding config and map external port 81 to internal 192.168.1.12:3900
-
 ## Pre-provisioning
 
 1. `ssh alarm@[IP from device list]` (password: alarm)
@@ -48,4 +39,4 @@ vistaicm-server can be updated partially, either by deploying the hooks or by de
  - Device Address = 18
  - Setup site: http://192.168.1.28/setup
  - Mobile site: http://192.168.1.28/pda
- 
+
